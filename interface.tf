@@ -3,11 +3,11 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "instance_count" {
+/*variable "instance_count" {
   description = "Number of instances to launch"
   type        = number
   default     = 1
-}
+}*/
 
 variable "ami" {
   description = "AMI to use for the instance"
