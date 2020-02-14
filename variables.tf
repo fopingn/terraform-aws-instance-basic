@@ -1,13 +1,13 @@
 variable "region" {
   description = "region of aws"
-  default     = "us-east-1"
+  default     = "us-east-2"
 }
 
-/*variable "instance_count" {
+variable "instance_count" {
   description = "Number of instances to launch"
   type        = number
   default     = 1
-}*/
+}
 
 variable "ami" {
   description = "AMI to use for the instance"
@@ -37,6 +37,12 @@ variable "instance_type" {
   type        = string
 }
 
+variable "key_name" {
+  description = "The key name to use for the instance"
+  type        = string
+  default     = ""
+}
+
 variable "monitoring" {
   description = "If true, the launched EC2 instance will have detailed monitoring enabled"
   type        = bool
@@ -55,10 +61,26 @@ variable "subnet_id" {
   default     = ""
 }
 
+variable "user_data" {
+  description = "The user data to provide when launching the instance"
+  default     = ""
+}
+
 variable "associate_public_ip_address" {
   description = "If true, the EC2 instance will have associated public IP address"
   type        = bool
   default     = null
+}
+variable "get_password_data" {
+  description = "If true, wait for password data to become available and retrieve it."
+  type        = bool
+  default     = false
+}
+
+variable "tenancy" {
+  description = "The tenancy of the instance (if the instance is running in a VPC). Available values: default, dedicated, host."
+  type        = string
+  default     = "default"
 }
 
 variable "root_block_device" {
@@ -85,6 +107,11 @@ variable "network_interface" {
   default     = []
 }
 
+variable "tags" {
+  description = "tags for ec2 instances"
+  type        = map(string)
+  default     = {}
+}
 # Several output for this instance module
 
 output "public_dns" {

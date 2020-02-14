@@ -1,9 +1,21 @@
+terraform {
+  required_version = ">= 0.12, < 0.13"
+}
+
 resource "aws_instance" "this" {
+
+  count                       = var.instance_count
   ami                         = var.ami
   instance_type               = var.instance_type
+  key_name                    = var.key_name
   monitoring                  = var.monitoring
   associate_public_ip_address = var.associate_public_ip_address
+  get_password_data           = var.get_password_data
+  tenancy                     = var.tenancy
   ebs_optimized               = var.ebs_optimized
+  vpc_security_group_ids      = var.vpc_security_group_ids
+  subnet_id                   = var.subnet_id
+  user_data                   = var.user_data
 
   dynamic "root_block_device" {
     for_each = var.root_block_device
@@ -43,4 +55,5 @@ resource "aws_instance" "this" {
   disable_api_termination              = var.disable_api_termination
   instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
 
+  tags = var.tags
 }
