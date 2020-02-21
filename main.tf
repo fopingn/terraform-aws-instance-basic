@@ -15,6 +15,7 @@ resource "aws_instance" "this" {
   ebs_optimized               = var.ebs_optimized
   vpc_security_group_ids      = var.vpc_security_group_ids
   subnet_id                   = var.subnet_id
+  private_ip                  = var.private_ip
   user_data                   = var.user_data
 
   dynamic "root_block_device" {

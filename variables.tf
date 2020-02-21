@@ -65,12 +65,34 @@ variable "user_data" {
   description = "The user data to provide when launching the instance"
   default     = ""
 }
+variable "user_data_base64" {
+  description = "Can be used instead of user_data to pass base64-encoded binary data directly. Use this instead of user_data whenever the value is not a valid UTF-8 string. For example, gzip-encoded user data must be base64-encoded and passed via this argument to avoid corruption."
+  type        = string
+  default     = null
+}
 
+variable "iam_instance_profile" {
+  description = "The IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile."
+  type        = string
+  default     = ""
+}
 variable "associate_public_ip_address" {
   description = "If true, the EC2 instance will have associated public IP address"
   type        = bool
   default     = null
 }
+variable "private_ip" {
+  description = "Private IP address to associate with the instance in a VPC"
+  type        = string
+  default     = null
+}
+
+variable "private_ips" {
+  description = "A list of private IP address to associate with the instance in a VPC. Should match the number of instances."
+  type        = list(string)
+  default     = []
+}
+
 variable "get_password_data" {
   description = "If true, wait for password data to become available and retrieve it."
   type        = bool
@@ -111,39 +133,4 @@ variable "tags" {
   description = "tags for ec2 instances"
   type        = map(string)
   default     = {}
-}
-# Several output for this instance module
-
-output "public_dns" {
-  description = "List of public DNS names assigned to the instances. For EC2-VPC, this is only available if you've enabled DNS hostnames for your VPC"
-  value       = aws_instance.this.*.public_dns
-}
-
-output "public_ip" {
-  description = "List of public IP addresses assigned to the instances, if applicable"
-  value       = aws_instance.this.*.public_ip
-}
-output "id" {
-  description = "List of IDs of instances"
-  value       = aws_instance.this.*.id
-}
-
-output "arn" {
-  description = "List of ARNs of instances"
-  value       = aws_instance.this.*.arn
-}
-
-output "availability_zone" {
-  description = "List of availability zones of instances"
-  value       = aws_instance.this.*.availability_zone
-}
-
-output "instance_type" {
-  description = "the instance type of ec2"
-  value       = var.instance_type
-}
-
-output "ami" {
-  description = "the ami of ec2 instance"
-  value       = var.ami
 }
