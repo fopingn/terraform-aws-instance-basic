@@ -4,7 +4,7 @@ terraform {
 
 resource "aws_instance" "this" {
 
-  count                       = var.instance_count
+  #count                       = var.instance_count
   ami                         = var.ami
   instance_type               = var.instance_type
   key_name                    = var.key_name
@@ -44,17 +44,21 @@ resource "aws_instance" "this" {
     }
   }
 
-  dynamic "network_interface" {
-    for_each = var.network_interface
-    content {
-      device_index          = network_interface.value.device_index
-      network_interface_id  = lookup(network_interface.value, "network_interface_id", null)
-      delete_on_termination = lookup(network_interface.value, "delete_on_termination", false)
-    }
-  }
-
   disable_api_termination              = var.disable_api_termination
   instance_initiated_shutdown_behavior = var.instance_initiated_shutdown_behavior
 
   tags = var.tags
+}
+
+resource "aws_network_interface" "instance_net_int" {
+  #count = length (var.eni_private_ips)
+  description = "The network interface of the subnet"
+  subnet_id   = var.subnet_id
+  private_ips = var.eni_private_ips
+    attachment {
+    instance     = aws_instance.this.id
+    device_index = 1
+  }
+
+
 }

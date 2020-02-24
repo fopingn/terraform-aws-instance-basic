@@ -3,12 +3,12 @@ variable "region" {
   default     = "us-east-2"
 }
 
-variable "instance_count" {
+/*variable "instance_count" {
   description = "Number of instances to launch"
   type        = number
   default     = 1
 }
-
+*/
 variable "ami" {
   description = "AMI to use for the instance"
   type        = string
@@ -133,4 +133,16 @@ variable "tags" {
   description = "tags for ec2 instances"
   type        = map(string)
   default     = {}
+}
+
+variable "device_index" {
+  description = "Integer to define the devices index."
+  type        = number
+  default     = null
+}
+
+variable "eni_private_ips" {
+  description = "List of private IPs to assign to the ENI."
+  type        = list(string)
+  default     = []
 }
