@@ -50,7 +50,7 @@ resource "aws_instance" "this" {
   tags = var.tags
 }
 
-resource "aws_network_interface" "instance_net_int" {
+/*resource "aws_network_interface" "instance_net_int" {
   #count = length (var.eni_private_ips)
   description = "The network interface of the subnet"
   subnet_id   = var.subnet_id
@@ -61,4 +61,4 @@ resource "aws_network_interface" "instance_net_int" {
   }
   tags = var.eni_tags
 
-}
+}*/

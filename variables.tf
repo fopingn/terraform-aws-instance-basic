@@ -134,21 +134,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-variable "device_index" {
-  description = "Integer to define the devices index."
-  type        = number
-  default     = null
-}
-
-variable "eni_private_ips" {
-  description = "List of private IPs to assign to the ENI."
-  type        = list(string)
-  default     = []
-}
-
-variable "eni_tags" {
-  description = "tags of eni for ec2 instances"
-  type        = map(string)
-  default     = {}
-}
