@@ -55,10 +55,10 @@ resource "aws_network_interface" "instance_net_int" {
   description = "The network interface of the subnet"
   subnet_id   = var.subnet_id
   private_ips = var.eni_private_ips
-    attachment {
+  attachment {
     instance     = aws_instance.this.id
-    device_index = 1
+    device_index = var.device_index
   }
-
+  tags = var.eni_tags
 
 }

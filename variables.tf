@@ -146,3 +146,9 @@ variable "eni_private_ips" {
   type        = list(string)
   default     = []
 }
+
+variable "eni_tags" {
+  description = "tags of eni for ec2 instances"
+  type        = map(string)
+  default     = {}
+}
